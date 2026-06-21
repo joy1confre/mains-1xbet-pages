@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1xbet 信息索引 · 知识归档</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f5f7fa;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans', sans-serif;
+      line-height: 1.6;
+      color: #1e293b;
+      padding-bottom: 3rem;
+    }
+
+    /* 深色头图 */
+    .hero {
+      background: linear-gradient(145deg, #0b0f1a 0%, #1a2332 100%);
+      color: #e2e8f0;
+      padding: 4rem 2rem 3rem;
+      text-align: center;
+      border-bottom: 4px solid #fbbf24;
+    }
+
+    .hero h1 {
+      font-size: 2.4rem;
+      font-weight: 500;
+      letter-spacing: 1px;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero .sub {
+      font-size: 1.05rem;
+      color: #94a3b8;
+      max-width: 600px;
+      margin: 0 auto 0.8rem;
+    }
+
+    .hero .meta-tag {
+      display: inline-block;
+      background: #2d3a4f;
+      padding: 0.25rem 1rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      color: #cbd5e1;
+      letter-spacing: 0.3px;
+      margin-top: 0.6rem;
+    }
+
+    /* 正文容器 */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    /* 目录感网格 */
+    .grid-index {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.8rem;
+      margin-bottom: 3rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 6px 18px rgba(0,0,0,0.03);
+      padding: 1.8rem 1.5rem;
+      transition: box-shadow 0.2s;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 14px rgba(0,0,0,0.06), 0 12px 26px rgba(0,0,0,0.05);
+    }
+
+    .card h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.8rem;
+      color: #1e293b;
+      border-left: 4px solid #fbbf24;
+      padding-left: 0.75rem;
+    }
+
+    .card p, .card li {
+      font-size: 0.96rem;
+      color: #475569;
+    }
+
+    .card ul {
+      list-style: none;
+      padding-left: 0;
+      margin-top: 0.5rem;
+    }
+
+    .card ul li {
+      position: relative;
+      padding-left: 1.2rem;
+      margin-bottom: 0.45rem;
+    }
+
+    .card ul li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: #fbbf24;
+      font-weight: 600;
+    }
+
+    a {
+      color: #2563eb;
+      text-decoration: none;
+      border-bottom: 1px dotted transparent;
+      transition: border-bottom 0.15s, color 0.15s;
+    }
+
+    a:hover {
+      color: #1e3a8a;
+      border-bottom: 1px dotted #2563eb;
+    }
+
+    .accent-link {
+      color: #d97706;
+      font-weight: 500;
+    }
+
+    .accent-link:hover {
+      color: #b45309;
+      border-bottom-color: #d97706;
+    }
+
+    /* 说明区 + 提示区 双栏 */
+    .info-panel {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      margin: 2.5rem 0 2.2rem;
+    }
+
+    .info-box {
+      flex: 1 1 240px;
+      background: #ffffff;
+      border-radius: 16px;
+      padding: 1.8rem 1.8rem 2rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      border: 1px solid #e9edf2;
+    }
+
+    .info-box h4 {
+      font-size: 1rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      margin-bottom: 1rem;
+    }
+
+    .info-box p {
+      font-size: 0.96rem;
+      color: #334155;
+    }
+
+    .info-box .icon-em {
+      font-size: 1.5rem;
+      display: inline-block;
+      margin-right: 0.3rem;
+      vertical-align: middle;
+    }
+
+    .tip-badge {
+      display: inline-block;
+      background: #fef3c7;
+      color: #92400e;
+      font-size: 0.8rem;
+      font-weight: 500;
+      padding: 0.15rem 0.8rem;
+      border-radius: 30px;
+      margin-top: 0.8rem;
+    }
+
+    /* FAQ 摘要 简洁 */
+    .faq-mini {
+      margin: 2.8rem 0 1.6rem;
+    }
+
+    .faq-mini details {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 1rem 1.5rem;
+      margin-bottom: 0.8rem;
+      transition: background 0.15s;
+    }
+
+    .faq-mini details[open] {
+      background: #fafcff;
+      border-color: #cbd5e1;
+    }
+
+    .faq-mini summary {
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #1e293b;
+      padding: 0.15rem 0;
+    }
+
+    .faq-mini summary::marker {
+      color: #fbbf24;
+    }
+
+    .faq-mini p {
+      margin-top: 0.7rem;
+      padding: 0.2rem 0 0.3rem;
+      color: #475569;
+      font-size: 0.95rem;
+    }
+
+    .faq-mini a {
+      color: #2563eb;
+    }
+
+    /* 相关信息区 */
+    .related {
+      background: #ffffff;
+      border-radius: 18px;
+      padding: 2rem 2rem 2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+      border: 1px solid #eef2f6;
+      margin-top: 1.8rem;
+    }
+
+    .related h5 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #475569;
+      margin-bottom: 0.6rem;
+    }
+
+    .related-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem 1rem;
+      padding: 0.4rem 0;
+    }
+
+    .related-tags span {
+      background: #f1f5f9;
+      padding: 0.3rem 1rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      color: #334155;
+      letter-spacing: 0.3px;
+    }
+
+    .related-tags a {
+      color: #1e293b;
+      border-bottom: none;
+    }
+
+    .related-tags a:hover {
+      color: #2563eb;
+    }
+
+    hr {
+      margin: 2.2rem 0 1.2rem;
+      border: 0;
+      border-top: 1px solid #dce1e8;
+    }
+
+    .footer-note {
+      font-size: 0.85rem;
+      color: #64748b;
+      text-align: center;
+      padding-top: 1.5rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 640px) {
+      .hero h1 {
+        font-size: 1.8rem;
+      }
+      .grid-index {
+        grid-template-columns: 1fr;
+      }
+      .info-panel {
+        flex-direction: column;
+      }
+      .container {
+        padding: 1.8rem 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>1xbet · 资料整理库</h1>
+  <div class="sub">围绕平台功能与使用场景的信息索引，帮助快速定位常见条目</div>
+  <div class="meta-tag">版本归档 · 知识入口</div>
+</div>
+
+<div class="container">
+
+  <!-- 目录感卡片网格 -->
+  <div class="grid-index">
+    <div class="card">
+      <h3>平台概览</h3>
+      <ul>
+        <li>基础介绍与注册指引</li>
+        <li>界面语言及区域设置</li>
+        <li>账户安全与隐私保护</li>
+        <li>官方帮助中心入口</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>常用功能</h3>
+      <ul>
+        <li>投注类型与即时赔率</li>
+        <li>赛事筛选与收藏</li>
+        <li>钱包及交易记录</li>
+        <li>通知与偏好管理</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>场景指南</h3>
+      <ul>
+        <li>移动端与桌面端切换</li>
+        <li>多语言客服支持</li>
+        <li>优惠与活动中心</li>
+        <li>自助排除与限额工具</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>参考资源</h3>
+      <ul>
+        <li>常见术语与缩写</li>
+        <li>交易手续费说明</li>
+        <li>第三方安全认证</li>
+        <li>最新版本更新记录</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 说明区 + 提示区 -->
+  <div class="info-panel">
+    <div class="info-box">
+      <h4><span class="icon-em">📚</span> 说明</h4>
+      <p>本页面为独立的知识索引归档，汇总与 <a href="https://mains-1xbet.com" class="accent-link">1xbet</a> 相关的使用信息、功能模块及常见条目。所有内容均基于公开资料整理，旨在提供便利的参考线索，不构成任何形式的操作建议。如需深入了解具体规则，请以平台官方说明为准。</p>
+    </div>
+    <div class="info-box">
+      <h4><span class="icon-em">💡</span> 提示</h4>
+      <p>日常浏览时建议使用官方渠道获取最新政策。部分功能可能因地区或版本有所差异，遇到不确定的情况，可优先查阅账户内的帮助文档或联系在线支持。保持软件版本更新也有助于提升体验与安全性。</p>
+      <span class="tip-badge">版本差异需留意</span>
+    </div>
+  </div>
+
+  <!-- FAQ 摘要区 -->
+  <div class="faq-mini">
+    <details>
+      <summary>如何快速找到赛事列表？</summary>
+      <p>登录到主界面后，顶部导航栏设有“体育”分类，点击即可按联赛或运动项目浏览。你还可以使用搜索框直接输入队伍或联赛名称。更多快捷操作可参考 <a href="https://mains-1xbet.com">1xbet</a> 帮助页面的“赛事过滤”部分。</p>
+    </details>
+    <details>
+      <summary>账户相关的常见设置有哪些？</summary>
+      <p>个人设置区涵盖密码修改、双因素验证、通知偏好、语言及货币单位等。存取款页面会显示当前支持的方式与对应限额。建议定期检查安全设置，确保账户信息准确。</p>
+    </details>
+    <details>
+      <summary>优惠活动是否适用所有用户？</summary>
+      <p>不同活动有各自参与条件，例如最低存款额、特定赛事或时段限制。活动中心页面会列出完整条款，仔细阅读后再参与更为稳妥。如对条款有疑问，可咨询客服获取解释。</p>
+    </details>
+  </div>
+
+  <!-- 相关信息区 -->
+  <div class="related">
+    <h5>相关信息 &amp; 标签</h5>
+    <div class="related-tags">
+      <span>账户安全</span>
+      <span>存取款方式</span>
+      <span>赔率类型</span>
+      <span>直播功能</span>
+      <span>多终端同步</span>
+      <span>客服支持</span>
+      <span>活动条款</span>
+      <span>隐私政策</span>
+      <span><a href="https://mains-1xbet.com">1xbet</a></span>
+    </div>
+    <p style="font-size:0.9rem; color:#64748b; margin-top:1rem;">以上标签仅为常见索引分类，不涉及具体排名或推荐。所有信息均来自公开文档与用户手册。</p>
+  </div>
+
+  <hr>
+
+  <div class="footer-note">
+    资料整理 · 知识库入口式页面 — 内容仅供索引参考
+  </div>
+</div>
+
+</body>
+</html>
