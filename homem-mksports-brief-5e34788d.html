@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MK体育 — 数据查询·赛事对照·延伸阅读</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #f6f9fc;
+            color: #1b2b3e;
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+        }
+
+        /* hero 区域 */
+        .hero {
+            background: linear-gradient(135deg, #0d3b4f 0%, #1a6a7a 100%);
+            border-radius: 28px;
+            padding: 48px 36px;
+            margin-bottom: 40px;
+            color: #eefbfe;
+            box-shadow: 0 12px 24px -8px rgba(0,60,70,0.2);
+        }
+
+        .hero h1 {
+            font-size: 2.4rem;
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            opacity: 0.88;
+            max-width: 640px;
+        }
+
+        .hero .tagline {
+            display: inline-block;
+            background: rgba(255,255,255,0.12);
+            padding: 6px 18px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            margin-top: 14px;
+            color: #c1e7ed;
+            backdrop-filter: blur(2px);
+        }
+
+        /* 网格卡片通用 */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        @media (min-width: 640px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (min-width: 960px) {
+            .grid {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 28px 24px;
+            border: 1px solid #ddeef2;
+            box-shadow: 0 4px 14px rgba(0,60,70,0.04);
+            transition: box-shadow 0.2s, transform 0.15s;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 28px rgba(0,80,90,0.08);
+            transform: translateY(-3px);
+        }
+
+        .card h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: #0d4b5a;
+            margin-bottom: 12px;
+            border-left: 5px solid #2b9aaa;
+            padding-left: 14px;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: #2a3f4b;
+            margin-bottom: 8px;
+        }
+
+        .card .icon-accent {
+            color: #2b9aaa;
+            font-weight: 500;
+        }
+
+        .badge-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px 10px;
+            margin-top: 14px;
+        }
+
+        .badge {
+            background: #e1f1f5;
+            color: #0d4f5e;
+            padding: 4px 14px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 450;
+        }
+
+        /* 场景区块（左右对照） */
+        .scenario-section {
+            background: #ffffff;
+            border-radius: 24px;
+            padding: 36px 28px;
+            margin-bottom: 40px;
+            border: 1px solid #ddeef2;
+        }
+
+        .scenario-section h2 {
+            font-size: 1.8rem;
+            font-weight: 450;
+            color: #0d3b4f;
+            margin-bottom: 24px;
+            letter-spacing: -0.01em;
+        }
+
+        .scenario-flex {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        @media (min-width: 700px) {
+            .scenario-flex {
+                flex-direction: row;
+                gap: 36px;
+            }
+            .scenario-col {
+                flex: 1;
+            }
+        }
+
+        .scenario-col h4 {
+            font-size: 1.1rem;
+            color: #1a6a7a;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .scenario-col p {
+            font-size: 0.95rem;
+            color: #2a3f4b;
+            margin-bottom: 12px;
+        }
+
+        .scenario-col ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .scenario-col ul li {
+            padding: 6px 0 6px 22px;
+            position: relative;
+            font-size: 0.92rem;
+            color: #1f3a45;
+        }
+
+        .scenario-col ul li::before {
+            content: "•";
+            color: #2b9aaa;
+            font-weight: bold;
+            position: absolute;
+            left: 2px;
+        }
+
+        /* 提示 / FAQ 混合区 */
+        .tip-faq {
+            background: #eaf6f9;
+            border-radius: 24px;
+            padding: 32px 28px;
+            margin-bottom: 40px;
+            border-left: 6px solid #2b9aaa;
+        }
+
+        .tip-faq h2 {
+            font-size: 1.5rem;
+            font-weight: 450;
+            color: #0d3b4f;
+            margin-bottom: 16px;
+        }
+
+        .faq-item {
+            margin-bottom: 18px;
+        }
+
+        .faq-item strong {
+            color: #0d4b5a;
+            display: block;
+            margin-bottom: 4px;
+            font-weight: 500;
+        }
+
+        .faq-item p {
+            font-size: 0.92rem;
+            color: #1f3a45;
+        }
+
+        .faq-item .meta-note {
+            color: #3c7787;
+            font-size: 0.85rem;
+        }
+
+        /* 链接嵌入式句子示范 */
+        .inline-link-area {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 24px 28px;
+            margin-top: 10px;
+            margin-bottom: 32px;
+            border: 1px solid #d4e7ec;
+            font-size: 0.98rem;
+            color: #1b2b3e;
+        }
+
+        .inline-link-area a {
+            color: #107a8a;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px solid #9ecbd6;
+            transition: border-color 0.15s;
+        }
+
+        .inline-link-area a:hover {
+            border-bottom-color: #107a8a;
+        }
+
+        /* 页脚 */
+        footer {
+            border-top: 1px solid #d4e7ec;
+            padding: 24px 0 16px;
+            margin-top: auto;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #4b6f7c;
+        }
+
+        footer a {
+            color: #107a8a;
+            text-decoration: none;
+        }
+
+        /* 按钮微交互 */
+        .btn-outline {
+            display: inline-block;
+            padding: 8px 22px;
+            border: 1px solid #2b9aaa;
+            border-radius: 40px;
+            color: #0d4b5a;
+            background: transparent;
+            font-weight: 450;
+            font-size: 0.85rem;
+            transition: background 0.2s, color 0.2s;
+            text-decoration: none;
+        }
+
+        .btn-outline:hover {
+            background: #2b9aaa;
+            color: white;
+        }
+
+        /* 响应式微调 */
+        @media (max-width: 480px) {
+            .hero {
+                padding: 32px 20px;
+            }
+            .hero h1 {
+                font-size: 1.9rem;
+            }
+            .card {
+                padding: 22px 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- hero -->
+        <div class="hero">
+            <h1>MK体育 · 信息查证与日常参照</h1>
+            <p>面向赛事爱好者的轻量数据入口：比分回溯、赛历对照、动态摘要与延伸阅读。不依赖夸张断言，专注可验证的体育信息框架。</p>
+            <div class="tagline">查询 · 对照 · 延伸</div>
+        </div>
+
+        <!-- 网格卡片：摘要+亮点+使用建议（产品说明式） -->
+        <div class="grid">
+            <div class="card">
+                <h3>摘要</h3>
+                <p><span class="icon-accent">MK体育</span> 聚合多来源赛事基础数据，提供结构化查询界面。用户可快速检索球队近期战绩、联赛积分趋势及历史交锋记录，信息粒度以“场次—轮次—赛季”为轴。</p>
+                <p>数据更新频率为每日两次，覆盖主流足球及篮球联赛，不含实时赔率或预测内容。</p>
+                <div class="badge-list">
+                    <span class="badge">足球</span>
+                    <span class="badge">篮球</span>
+                    <span class="badge">积分榜</span>
+                    <span class="badge">历史交锋</span>
+                </div>
+            </div>
+            <div class="card">
+                <h3>亮点</h3>
+                <p>· 赛季维度横向对照：同时查看五个联赛的同期数据，免去多标签切换。<br>
+                   · 自定义筛选面板：按主客场、比分区间、进球数过滤赛果。<br>
+                   · 轻量文本模式：关闭图像后仍可完整阅读表格与注释。<br>
+                   · 保留原始数据来源链接，方便交叉验证。</p>
+                <p style="margin-top:10px; font-size:0.9rem; color:#2f6f7e;">适合赛前查询、赛后复盘及数据爱好者自建记录。</p>
+            </div>
+            <div class="card">
+                <h3>使用建议</h3>
+                <p>将 <span class="icon-accent">MK体育</span> 作为信息参照起点，而非唯一信源。建议同时参考联赛官方统计与赛事报告。平台不对场外解读或第三方推论负责。</p>
+                <p>日常使用场景举例：<br>
+                   — 查看某球队近五场得失球分布<br>
+                   — 对比两名前锋在不同赛事的进球效率<br>
+                   — 回溯上赛季同轮次积分变化</p>
+                <a href="https://homem-mksports.com" class="btn-outline" style="margin-top:12px;">MK体育</a>
+            </div>
+        </div>
+
+        <!-- 场景区块：日常查询 + 对照 + 延伸阅读 -->
+        <div class="scenario-section">
+            <h2>从日常查询到延伸阅读</h2>
+            <div class="scenario-flex">
+                <div class="scenario-col">
+                    <h4>📋 查询与对照</h4>
+                    <p>日常查询强调速度和精确：输入球队名或联赛关键词即可获得结构化结果。对照模式支持双栏并排显示，例如同时对比两支球队的主客场战绩，或两赛季的同期积分走势。所有数据均标注更新时间和来源缩写。</p>
+                    <ul>
+                        <li>关键词智能补全，减少输入负担</li>
+                        <li>对照模式下可锁定某列滚动</li>
+                        <li>导出为 CSV 或纯文本，用于个人分析</li>
+                    </ul>
+                </div>
+                <div class="scenario-col">
+                    <h4>📖 延伸阅读</h4>
+                    <p>每场比赛及球队页面配有「相关记录」区域，聚合该话题下的历史文章、裁判报告摘要及规则变动说明。延伸内容由编辑团队筛选，不包含外部用户生成评论。</p>
+                    <p>此外提供赛季大事记时间轴（文本形式），帮助理解数据背后的赛程背景。所有延伸阅读均标注原始出处。</p>
+                    <ul>
+                        <li>裁判规则变动摘要</li>
+                        <li>赛程密集期与伤病关联统计</li>
+                        <li>联赛扩军/改制前后数据对照</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 可信但克制的访问说明 + 嵌入链接句子 -->
+        <div class="inline-link-area">
+            <p><strong>关于访问与使用</strong> — 平台无需注册即可浏览基础数据，部分高级筛选功能建议通过 <a href="https://homem-mksports.com">MK体育</a> 的桌面端界面获得更好体验。所有公开数据均来自合规授权或公开统计，平台不提供投注建议、实时赔率或预测模型。建议用户结合联赛官方公告与媒体深度报道进行交叉判断。页面不含广告弹窗或自动播放内容。</p>
+        </div>
+
+        <!-- 提示 / FAQ 混合区（摘要式） -->
+        <div class="tip-faq">
+            <h2>常见参照提示</h2>
+            <div class="faq-item">
+                <strong>数据延迟范围？</strong>
+                <p>常规联赛数据在比赛结束后 2–4 小时内更新；杯赛及低级别联赛可能延长至 12 小时。所有数据页均显示更新时戳。</p>
+            </div>
+            <div class="faq-item">
+                <strong>是否包含历史赛季全部数据？</strong>
+                <p>目前覆盖 2018 赛季至今的主流联赛数据，更早的赛季以摘要形式呈现（积分、冠军、最佳射手等）。延伸阅读区包含部分经典赛季回顾。</p>
+                <span class="meta-note">数据回溯深度因联赛而异。</span>
+            </div>
+            <div class="faq-item">
+                <strong>移动端适配情况？</strong>
+                <p>页面针对手机和平板做了响应式布局，核心查询功能在移动端可直接使用。部分对照和多列视图建议横屏或桌面操作。</p>
+            </div>
+        </div>
+
+        <!-- 页脚 -->
+        <footer>
+            <p>内容仅供参考 · 请以官方发布为准 · <a href="https://homem-mksports.com">MK体育</a></p>
+            <p style="margin-top:6px; color:#5f7f8a;">— 简洁 · 可参照 · 信息密度 —</p>
+        </footer>
+
+    </div>
+</body>
+</html>
